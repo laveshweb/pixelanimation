@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "myFont";
+  src: url("/src/assets/fonts/ppmondwest-regular.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "myFont2";
+  src: url("/src/assets/fonts/ppneuebit-bold.otf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
