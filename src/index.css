@@ -13,3 +13,9 @@
   font-weight: bold;
   font-style: normal;
 }
+@font-face {
+  font-family: "myFont3";
+  src: url("/src/assets/fonts/Manrope-VariableFont_wght.ttf") format("truetype");
+ 
+  font-style: normal;
+}
