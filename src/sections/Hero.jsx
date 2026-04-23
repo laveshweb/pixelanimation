@@ -1,17 +1,26 @@
 import React from 'react'
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import Logo from '../assets/images/Logo.png'
 import TEA from '../assets/images/ChaiTea.jpg'
+import RV  from '../assets/images/RighhNav.png'
 
 
 const Hero = () => {
   const h1Ref = useRef(null)
   const h2Ref = useRef(null)
   const cardRef = useRef(null)
+  const [selected, setSelected] = useState('img')
+  const navRef = useRef(null)
+
 
   useEffect(() => {
+    gsap.fromTo(navRef.current,
+      { opacity: 0, y: -40 },   // start
+      { opacity: 1, y: 0, duration: 1.5, ease: 'power3.out' }  // end
+    )
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+  
 
     // H1 comes in first
     tl.fromTo(h1Ref.current,
@@ -32,18 +41,48 @@ const Hero = () => {
       { opacity: 1, y: 0, scale: 1, duration: 1 },
       '-=0.2' // starts 0.2s before h2 finishes
     )
-
+  
   }, [])
   return (
     <div>
-       
+       {/* ------------------------------------------Background Image----------------------------------- */}
     <div className="relative w-full h-screen overflow-hidden">
       {/* Background Image */}
       <img src="/backgroundimg.png" alt="background" className="absolute inset-0 w-full h-full object-cover -z-10"/>
 
+{/* ------------------------------------------Right Nav PART----------------------------------- */}
+<nav ref={navRef} className='absolute w-full flex justify-end px-14 py-10 z-10'>
 
+  <div className='relative flex items-center hidden sm:flex  sm:px-8 sm:py-2 md:px-5 md:py-1 lg:px-3 lg:py-1.5 xl:px-2.5 xl:py-[1.5px] rounded-2xl bg-[#E2E7EC] 
+  sm:gap-8 md:gap-6 lg:gap-6 xl:gap-0'>
+
+    {/* Sliding white background */}
+    <div
+      className={`absolute top-1.5 bottom-1.5 bg-white rounded-xl shadow-md transition-all duration-300 ease-in-out 
+        ${selected === 'text' ? 'left-1.5 right-[calc(50%+2px)]' : 'left-[calc(50%+2px)] right-1.5'}`}/>
+    {/* Text */}
+    <span
+      onClick={() => setSelected('text')}
+      className={`relative z-10 font-semibold font-[myFont2] px-2 py-0.5 lg:py-1 rounded-xl relative 
+        right-3 absolute md:right-0 md:translate-x-[-6px] lg:translate-x-0 lg:right-0 text-[2.5vw] lg:text-[1.6vw] md:mr-2 lg:mr-0  xl:pr-6 xl:pl-3 -pb-0.5 
+        cursor-pointer transition-colors duration-300
+        ${selected === 'text' ? 'text-black' : 'text-[#0d1340]'}`} >
+      Call
+    </span>
+    {/* Image */}
+    <div
+      onClick={() => setSelected('img')}
+      className='relative z-10 cursor-pointer px-0.5 sm:-m-3 -mr-0.5 
+      xl:pr-2 xl:pl-2 lg:mr-2 relative md:right-1 lg:left-2  2xl:left-2.5  ' >
+      <img
+        src={RV}
+        className='sm:w-6 sm:h-4  md:w-4 md:h-4 md:w-9 md:h-4 ' />
+    </div>
+
+  </div>
+</nav>
 {/* ------------------------------------------CENTER PART----------------------------------- */}
-<section className="min-h-screen flex items-center justify-center px-4 mt-">
+<section className="min-h-screen flex items-center justify-center px-4 ">
       <div className="text-center max-w-4xl w-full">
 
         {/* LOGO - No animation as requested */}
@@ -88,8 +127,7 @@ const Hero = () => {
       </div>
     </section>
     </div>
-{/* ------------------------------------------Right Nav PART----------------------------------- */}
- 
+
     </div>
   )
 }
